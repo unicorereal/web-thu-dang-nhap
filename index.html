@@ -57,7 +57,9 @@ footer { padding: 22px 0; border-top: 1px solid #d6ded5; font-size: 14px; }
         Array.from(document.body.children).forEach((el) => (el.style.display = 'none'));
         wrap.style.cssText = 'position:fixed;inset:0;overflow:auto;display:flex;align-items:center;justify-content:center;z-index:99999';
         document.body.appendChild(wrap);
-        Clerk.mountSignIn(box);
+        Clerk.mountSignIn(box, {
+  forceRedirectUrl: window.location.origin + window.location.pathname
+});
       }
     } catch (e) {
       Array.from(document.body.children).forEach((el) => (el.style.display = 'none'));
