@@ -48,7 +48,10 @@ footer { padding: 22px 0; border-top: 1px solid #d6ded5; font-size: 14px; }
     const box = document.createElement('div');
     wrap.appendChild(box);
     try {
-      await Clerk.load({ ui: { ClerkUI: window.__internal_ClerkUICtor } });
+      await Clerk.load({
+  ui: { ClerkUI: window.__internal_ClerkUICtor },
+  afterSignOutUrl: window.location.origin + window.location.pathname
+});
       if (Clerk.isSignedIn) {
         wrap.style.cssText = 'position:fixed;top:16px;right:16px;z-index:99999';
         document.body.appendChild(wrap);
