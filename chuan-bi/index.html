@@ -27,6 +27,46 @@ footer { padding: 22px 0; border-top: 1px solid #d6ded5; font-size: 14px; }
 @media (max-width: 600px) { header { align-items: flex-start; flex-direction: column; } main { padding-top: 32px; } .card { padding: 22px; } }
 </style>
   <!-- DÁN ĐOẠN 1 TỪ CLERK QUICK COPY VÀ ĐOẠN 2 TRONG FILE HƯỚNG DẪN NGAY DƯỚI DÒNG NÀY -->
+  <script
+  defer
+  crossorigin="anonymous"
+  src="https://ethical-satyr-4400.clerk.accounts.dev/npm/@clerk/ui@1/dist/ui.browser.js"
+  type="text/javascript">
+</script>
+
+<script
+  defer
+  crossorigin="anonymous"
+  data-clerk-publishable-key="pk_test_ZXRoaWNhbC1zYXR5ci00NDAwLmNsZXJrLmFjY291bnRzLmRldiQ"
+  src="https://ethical-satyr-4400.clerk.accounts.dev/npm/@clerk/clerk-js@6/dist/clerk.browser.js"
+  type="text/javascript">
+</script>
+  <style id="clerk-gate">body { visibility: hidden; }</style> <script>
+  window.addEventListener('load', async () => {
+    const gate = document.getElementById('clerk-gate');
+    const wrap = document.createElement('div');
+    const box = document.createElement('div');
+    wrap.appendChild(box);
+    try {
+      await Clerk.load({ ui: { ClerkUI: window.__internal_ClerkUICtor } });
+      if (Clerk.isSignedIn) {
+        wrap.style.cssText = 'position:fixed;top:16px;right:16px;z-index:99999';
+        document.body.appendChild(wrap);
+        Clerk.mountUserButton(box);
+      } else {
+        Array.from(document.body.children).forEach((el) => (el.style.display = 'none'));
+        wrap.style.cssText = 'position:fixed;inset:0;overflow:auto;display:flex;align-items:center;justify-content:center;z-index:99999';
+        document.body.appendChild(wrap);
+        Clerk.mountSignIn(box);
+      }
+    } catch (e) {
+      Array.from(document.body.children).forEach((el) => (el.style.display = 'none'));
+      box.textContent = 'Không tải được Clerk: ' + e.message;
+      document.body.appendChild(wrap);
+    }
+    gate.remove();
+  });
+</script>
 </head>
 <body>
   <header>
